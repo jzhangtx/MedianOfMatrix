@@ -48,9 +48,30 @@ int CalculateMedianofMatrix(std::vector<std::vector<int>>& matrix)
 
 int main()
 {
-    std::vector<std::vector<int>> vv{ {1, 6, 7, 7, 8},
-        {2, 2, 3, 3, 4},
-        {1, 2, 2, 2, 2} };
+    while (true)
+    {
+        int count = 0;
+        std::cout << "Number of arries in the matrix: ";
+        std::cin >> count;
+        if (count == 0)
+            break;
+        int elementCount = 0;
+        std::cout << "Number of elements in the sorted arries:";
+        std::cin >> elementCount;
 
-    std::cout << "The median of the matrix is: " << CalculateMedianofMatrix(vv) << std::endl;
+        std::vector<std::vector<int>> vecOfVec;
+        vecOfVec.reserve(count);
+
+        for (int i = 0; i < count; ++i)
+        {
+            std::vector<int> vec(elementCount);
+            std::cout << "The numbers of the sorted array: ";
+            for (int i = 0; i < elementCount; ++i)
+                std::cin >> vec[i];
+
+            vecOfVec.push_back(std::move(vec));
+        }
+
+        std::cout << "The median element of the matrix is: " << CalculateMedianofMatrix(vecOfVec) << std::endl << std::endl;
+    }
 }
