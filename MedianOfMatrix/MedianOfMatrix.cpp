@@ -32,9 +32,7 @@ std::vector<int> Merge(const std::vector<std::vector<int>>& matrix)
     std::vector<int> v(*matrix.cbegin());
     for (auto i = matrix.cbegin()+1; i != matrix.cend(); ++i)
     {
-        std::vector<int> vec = Merge(v, *i);
-        v.clear();
-        v.assign(vec.begin(), vec.end());
+        v = std::move(Merge(v, *i));
     }
 
     return v;
@@ -50,23 +48,21 @@ int main()
 {
     while (true)
     {
-        int count = 0;
-        std::cout << "Number of arries in the matrix: ";
-        std::cin >> count;
-        if (count == 0)
+        int rows = 0;
+        int cols = 0;
+        std::cout << "The size of the matrix(rows, columns): ";
+        std::cin >> rows >> cols;
+        if (rows == 0 && cols == 0)
             break;
-        int elementCount = 0;
-        std::cout << "Number of elements in the sorted arries:";
-        std::cin >> elementCount;
 
         std::vector<std::vector<int>> vecOfVec;
-        vecOfVec.reserve(count);
+        vecOfVec.reserve(rows);
 
-        for (int i = 0; i < count; ++i)
+        for (int i = 0; i < rows; ++i)
         {
-            std::vector<int> vec(elementCount);
-            std::cout << "The numbers of the sorted array: ";
-            for (int i = 0; i < elementCount; ++i)
+            std::vector<int> vec(cols);
+            std::cout << "The " << i << "th row of the matrix: ";
+            for (int i = 0; i < cols; ++i)
                 std::cin >> vec[i];
 
             vecOfVec.push_back(std::move(vec));
